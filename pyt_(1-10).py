@@ -32,6 +32,6 @@ print(z[0])
 #9)first col of matrix
 print(z[:,0])
 #10)7D array with 0 and 3D array with 1
-print(np.array([[0,0,0,0,0,0,0]]*7))
-print(np.array([[1,1,1]]*3))
+print(np.array([[[[[[[0,0,2,3]]]]]]]))
+print(np.array([[[1,1,1]]]))
 
