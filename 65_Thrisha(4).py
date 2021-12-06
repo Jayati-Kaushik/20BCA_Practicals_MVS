@@ -30,7 +30,21 @@ plt.show()
 plt.boxplot('User Rating', data= best)
 plt.show()
 
-X = best[['User Rating','Reviews']]
+#regression for one variable
+X= best[['User Rating']]
+Y = best['Price']
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3)
+reg = linear_model.LinearRegression()
+reg.fit(X_train,Y_train)
+Y_pred = reg.predict(X_test)
+print("Coefficients: \n", reg.coef_)
+print("Mean squared error: %.2f" % mean_squared_error(Y_test, Y_pred))
+print("Coefficient of determination: %.2f" % r2_score(Y_test, Y_pred))
+print("Variance score: {}".format(reg.score(X_test,Y_test)))
+sns.regplot(X,Y)
+
+#Multiple regrssion
+X = best[['User Rating','Reviews','Year']]
 Y = best['Price']
 X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3)
 reg = linear_model.LinearRegression()
