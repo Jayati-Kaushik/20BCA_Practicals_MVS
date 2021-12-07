@@ -49,3 +49,20 @@ A=r2_score(X,Y)
 print(A)
 B=mean_squared_error(X,Y)
 print(B)
+
+#multiple linear regression
+X=mydata[['Age']]
+Y=mydata[['RestingBP','Oldpeak']]
+#X_train, X_test,Y_train,Y_test = train_test_split(x,y,test_size =0.2)
+X_train = X[:-20]
+X_test = X[-20:]
+Y_train = Y[:-20]
+Y_test = Y[-20:]
+
+reg = linear_model.LinearRegression()
+reg.fit(X_train,Y_train)
+print(reg.coef_)
+P=r2_score(X,Y)
+print(P)
+Q=mean_squared_error(X,Y)
+print(Q)
