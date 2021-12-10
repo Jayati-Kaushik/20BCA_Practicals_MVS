@@ -43,7 +43,7 @@ print(plt.show())
 X = wdata[['Temperature']]
 Y = wdata['Weekly_Sales']
 print(X.head(10))
-
+X = wdata[['Temperature','Fuel_Price']] #for multivariate regression
 
 #splitting into test and training set
 x_train, x_test,y_train,y_test = train_test_split(X,Y,test_size =0.2)
