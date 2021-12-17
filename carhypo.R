@@ -1,0 +1,5 @@
+getwd()
+cars=read.csv("CarPrice_Assignment.csv")
+View(cars)
+mean(data$carheight)
+t.test(data$carheight,mu=170,alternative='less',conf.level = 0.5)
