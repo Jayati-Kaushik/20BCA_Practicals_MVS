@@ -1,0 +1,5 @@
+attach(mtcars)
+View(mtcars)
+mean(mtcars$mpg)
+t.test(mtcars$mpg,mu=120,conf.level = 0.95)
+t.test(mtcars$mpg,mu=120,alternative = "less",conf.level = 0.95)
