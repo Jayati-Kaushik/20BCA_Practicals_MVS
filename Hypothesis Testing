@@ -1,0 +1,8 @@
+getwd()
+setwd("D:/R2SEM")
+data1=read.csv("CarPrice.csv")
+View(data1)
+mean(data1$wheelbase)
+#Ho: mean of wheelbase is equal to 98.75659
+#H1: mean of wheelbase is not equal to 98.75659
+t.test(data1$wheelbase,mu=98.75659,alternative="less",conf.level=0.95)
