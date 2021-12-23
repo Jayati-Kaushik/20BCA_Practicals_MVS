@@ -1,0 +1,6 @@
+getwd()
+setwd("C:/Users/DEC BEAST/Documents/Computer_data")
+car=read.csv("CarPrice_Assignment.csv")
+View(car)
+mean(car$horsepower)
+t.test(car$horsepower,mu=100,alternative = "less",conf.level = 0.95)
