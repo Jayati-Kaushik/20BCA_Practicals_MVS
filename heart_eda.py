@@ -32,6 +32,7 @@ sns.pairplot(mydata)
 sns.relplot(x="Oldpeak",y="RestingBP",hue="Sex",data=mydata)
 sns.catplot(x="RestingBP",kind='box',data=mydata)
 plt.show()
+#linear regression
 x=mydata[['Age']]
 y=mydata['RestingBP']
 np.reshape(-1,1)
