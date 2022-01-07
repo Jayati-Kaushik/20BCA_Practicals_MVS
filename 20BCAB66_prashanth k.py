@@ -1,47 +1,76 @@
-#using airline dataset
-#pip install factor_analyzer
-import os
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jan  7 22:51:22 2022
+
+@author: prash
+"""
+
+import numpy as np
 import pandas as pd
-from factor_analyzer import FactorAnalyzer
 import matplotlib.pyplot as plt
-from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity
-from factor_analyzer.factor_analyzer import calculate_kmo
-
-os.chdir("C:/Users/prash/Downloads")
-data1=pd.read_csv('airlinedata.csv')
-data1.drop(['Arrival Delay in Minutes'], axis=1, inplace=True)
-data1.info()
-data1.head()
-
-#Subset of the data, the 14 columns containing the survey answers
-x =data1[data1.columns[7:20]] 
-fa = FactorAnalyzer()
-fa.fit(x, 10)
-
-#Bartlett’s test 
-chi_square_value,p_value=calculate_bartlett_sphericity(x)
-print(chi_square_value, p_value)
-
-#Kaiser-Meyer-Olkin Test
-kmo_all,kmo_model=calculate_kmo(x)
-print(kmo_model)
-
-#Get Eigen values and plot them
-ev, v = fa.get_eigenvalues()
-print(ev)
-plt.scatter(range(1,x.shape[1]+1),ev)
-plt.plot(range(1,x.shape[1]+1),ev)
-plt.title('Scree Plot')
-plt.xlabel('Factors')
-plt.ylabel('Eigenvalue')
-plt.grid()
+import seaborn as sns
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+mydata=pd.read_csv("heart.csv")
+print(mydata.shape)
+print(mydata.head(10))
+mydata.info()
+print(mydata.describe())
+df_desc=pd.DataFrame(mydata.describe())
+df_desc.to_csv("/C:/Users/prash/Downloads/stats_eda/describe.csv")
+# Do we have duplicates?
+print('Number of Duplicates:', len(mydata[mydata.duplicated()]))
+# Do we have missing values?
+print('Number of Missing Values:', mydata.isnull().sum().sum())
+#sice fastingbp ang heartdisease are categorical values we convert that to str data type
+mydata['FastingBS'] = mydata['FastingBS'].astype(str)
+mydata['HeartDisease'] = mydata['HeartDisease'].astype(str)
+print(mydata.dtypes)
+corr_ht=mydata.corr()
+print(corr_ht)
+sns.heatmap(corr_ht)
 plt.show()
+print(mydata.nunique())
+print(mydata['ChestPainType'].unique())
+print(mydata['ST_Slope'].unique())
+print(mydata['RestingECG'].unique())
+sns.pairplot(mydata)
+sns.relplot(x="Oldpeak",y="RestingBP",hue="Sex",data=mydata)
+sns.catplot(x="RestingBP",kind='box',data=mydata)
+plt.show()
+#linear regression
+x=mydata[['Age']]
+y=mydata['RestingBP']
+np.reshape(-1,1)
+print(x.head(10))
+#X_train = X[:-20]
+#X_test = X[-20:]
+#Y_train = Y[:-20]
+#Y_test = Y[-20:]
+X_train, X_test,Y_train,Y_test = train_test_split(x,y,test_size =0.2)
+print(X_train)
+reg = linear_model.LinearRegression()
+print(reg.fit(X_train,Y_train))
+print(reg.coef_)
+A=r2_score(X,Y)
+print(A)
+B=mean_squared_error(X,Y)
+print(B)
 
-# Create factor analysis object and perform factor analysis
-fa = FactorAnalyzer(4, rotation='varimax')
-fa.fit(x)
-loads = fa.loadings_
-print(loads)
+#multiple linear regression
+X=mydata[['Age']]
+Y=mydata[['RestingBP','Oldpeak']]
+#X_train, X_test,Y_train,Y_test = train_test_split(x,y,test_size =0.2)
+X_train = X[:-20]
+X_test = X[-20:]
+Y_train = Y[:-20]
+Y_test = Y[-20:]
 
-# Get variance of each factors
-print(fa.get_factor_variance())
+reg = linear_model.LinearRegression()
+reg.fit(X_train,Y_train)
+print(reg.coef_)
+P=r2_score(X,Y)
+print(P)
+Q=mean_squared_error(X,Y)
+print(Q)
