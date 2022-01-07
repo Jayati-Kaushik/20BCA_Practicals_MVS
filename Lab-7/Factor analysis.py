@@ -12,6 +12,7 @@ weather=pd.read_csv('weather.csv')
 print(weather)
 #Subsetting the data
 x =weather[weather.columns[12:17]]
+from factor_analyzer import FactorAnalyzer
 fa = FactorAnalyzer()
 fa.fit(x, 6)
 #Getting Eigen values and plotting them
