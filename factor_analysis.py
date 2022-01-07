@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import FactorAnalysis
 from sklearn import preprocessing
 mydata=pd.read_csv("C:/Users/Raisa/Documents/jerry(DS)/datasets/Walmart_Store_sales.csv")
+print(mydata.drop('Date',axis=1,inplace=True))
 print(mydata.shape)
 print(mydata.head(10))
 mydata.info()
