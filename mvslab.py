@@ -7,7 +7,7 @@ import seaborn as sns
 from sklearn import linear_model
 
 
-os.chdir("C:/Users/prach/OneDrive/Desktop/Khushi")
+os.chdir("C:/Users/ASUS/OneDrive/Documents")
 mtcars = pd.read_csv('CarPrice_Assignment.csv')
 print(mtcars.head())
 print(mtcars.describe())
