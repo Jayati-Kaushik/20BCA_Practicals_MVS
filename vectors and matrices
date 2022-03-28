@@ -1,0 +1,37 @@
+import numpy as np
+#1. Define and print a 6 dimentional vector
+A=np.array([[1,2,3,4,5,6],
+            [7,2,9,4,3,7],
+            [10,3,2,4,8,3],
+            [2,5,4,1,6,9],
+            [1,4,6,8,3,2],
+            [2,6,8,4,3,6]])
+print("6 dimentional vector is\n",A)
+
+#2. Print the transpose of the above vector
+print("Transpose of the above vector\n",np.transpose(A))
+
+#3. Define two non square matrices such that they can be mulplied.
+A=np.array([[1,2,3],[2,3,4]])
+B=np.array([[3,4],[4,5],[5,6]])
+print("Two non square matrices")
+print(A)
+print(B)
+
+
+#4. Print the shape of the above matrices
+print("Shape of the above matrices")
+print(np.shape(A))
+print(np.shape(B))
+
+#5. Print the product of above two matrices (do so without using the inbuilt functions).
+print("Product of above matrices")
+result=[[0,0],
+        [0,0]]
+for i in range(len(A)):
+    for j in range(len(B[0])):
+        for k in range(len(B)):
+            result[i][j] = result[i][j]+A[i][k]*B[k][j]
+for r in result:
+    print (r)
+
