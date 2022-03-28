@@ -1,0 +1,407 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22563}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\b\f0\fs22\lang9 MULTIVARIATE STATISTICS\par
+VEDA KUMAR\par
+20BCAB27\par
+
+\pard\sa200\sl276\slmult1\par
+1. \ul LOGISTIC REGRESSION\ulnone\par
+\par
+import pandas as pd\par
+import numpy as np\par
+import matplotlib.pyplot as plt\par
+import os\par
+from sklearn.model_selection import train_test_split\par
+from sklearn.linear_model import LogisticRegression\par
+from sklearn.metrics import confusion_matrix\par
+\par
+\par
+os.chdir("C:/Users/Dell/Downloads")\par
+data=pd.read_csv('Telecom_Data.csv')\par
+\par
+       \par
+data.info()\par
+\par
+\par
+# regressor variables \par
+x = data.iloc[:, 0:20].values\par
+#print(x)\par
+  \par
+# regressed variables\par
+y = data.iloc[:, 20].values\par
+#print(y)\par
+\par
+\par
+xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size = 0.25, random_state = 0)\par
+\par
+classifier = LogisticRegression(random_state = 0)\par
+classifier.fit(xtrain, ytrain)\par
+#y_pred = classifier.predict(xtest)\par
+#cm = confusion_matrix(ytest, y_pred)\par
+#print ("Confusion Matrix : \\n", cm)\par
+\par
+\par
+2. \ul TAKING DUPLICATE DATASET\ulnone\par
+\par
+import pandas as pd\par
+import numpy as np\par
+import os\par
+import seaborn as sns\par
+import matplotlib.pyplot as plt\par
+\par
+os.chdir("C:/Users/Dell/Downloads")\par
+iris = pd.read_csv('Iris.csv')\par
+print(iris.head())\par
+print(iris.describe())\par
+sns.countplot(x='Species', data = iris)\par
+plt.show()\par
+#sns.scatterplot('SepalLengthCm','SepalWidthCm', hue='Species',data = iris)\par
+#plt.show()\par
+#sns.pairplot(iris.drop(['Id'],axis =1), hue= 'Species', height= 2)\par
+#plt.show()\par
+#sns.heatmap(iris.corr(), data = iris)\par
+#plt.show()\par
+#x= iris.corr(method= 'pearson')\par
+#print(x)\par
+#sns.heatmap(iris.corr(method='pearson').drop(['Id'],axis=1).drop(['Id'],axis=0))\par
+\par
+3.\ul CLUSTERING\ulnone\par
+\par
+from sklearn.datasets import load_iris\par
+from sklearn.cluster import AgglomerativeClustering\par
+import numpy as np\par
+import pandas as pd\par
+import matplotlib.pyplot as plt\par
+from scipy.cluster.hierarchy import dendrogram, linkage \par
+import os\par
+\par
+os.chdir("C:/Users/Dell/Downloads")\par
+dataset = pd.read_csv('CarPrice_Assignment_FA.csv')\par
+dataset.drop(['car_ID','CarName'],axis=1,inplace=True)\par
+dataset.info()\par
+df = dataset.iloc[:, [8,9]].values\par
+\par
+Z = linkage(df, method = "ward")\par
+dendro = dendrogram(Z)\par
+plt.title('Dendogram')\par
+plt.ylabel('Euclidean distance')\par
+plt.show()\par
+ac = AgglomerativeClustering(n_clusters=4, affinity="euclidean", linkage="ward")\par
+\par
+labels = ac.fit_predict(df)\par
+plt.figure(figsize = (8,5))\par
+plt.scatter(df[labels == 0,0] , df[labels == 0,1], c= 'red')\par
+plt.scatter(df[labels == 1,0] , df[labels == 1,1], c= 'blue')\par
+plt.scatter(df[labels == 2,0] , df[labels == 2,1], c= 'green')\par
+plt.scatter(df[labels == 3,0] , df[labels == 3,1], c= 'black')\par
+plt.scatter(df[labels == 4,0] , df[labels == 4,1], c= 'orange')\par
+plt.show()\par
+\par
+4.\ul  EDA AND LINEAR REGRESSION\ulnone\par
+\par
+# EDA and linear regression for two pair of variables\par
+import pandas as pd\par
+import numpy as np\par
+import os\par
+import seaborn as sns\par
+import matplotlib.pyplot as plt\par
+from sklearn import linear_model\par
+from sklearn import datasets\par
+import sklearn\par
+\par
+\par
+\par
+os.chdir("C:/Users/Dell/Downloads")\par
+mtcars=pd.read_csv('CarPrice_Assignment.csv')\par
+#print(mtcars.describe())\par
+mtcars.info()\par
+# 1. EDA and visualisation \par
+\par
+#print(mtcars.describe())\par
+\par
+#sns.countplot('doornumber',data=mtcars)\par
+#plt.show()\par
+\par
+#plt.hist('cylindernumber',data = mtcars)\par
+#plt.show()\par
+\par
+#x= mtcars.corr(method= 'pearson')\par
+#print(x)\par
+\par
+#sns.heatmap(mtcars.corr(method='pearson').drop(['car_ID','symboling'],axis=1).drop(['car_ID','symboling'],axis=0),data=mtcars)\par
+#sns.show()\par
+\par
+#df = pd.DataFrame(mtcars,columns=['cylindernumber','horsepower'])\par
+#plt.bar(df['cylindernumber'], df['horsepower'])\par
+#plt.title('Cylinder number vs Horsepower', fontsize=14)\par
+#plt.xlabel('CYlinder Number', fontsize=14)\par
+#plt.ylabel('Horse Power', fontsize=14)\par
+#plt.show()\par
+\par
+\par
+#sns.pairplot(mtcars)\par
+#plt.show()\par
+\par
+#sns.boxplot(y='compressionratio',x='fueltype',data=mtcars)\par
+#plt.show()\par
+\par
+\par
+#2. Regression on one variable \par
+#(a) Regression on one variable for negative correlation\par
+#X=mtcars[['highwaympg']]\par
+#Y=mtcars[['horsepower']]\par
+#reg=linear_model.LinearRegression()\par
+#reg.fit(X,Y)\par
+#print(reg.coef_)\par
+#sns.regplot(X,Y)\par
+#plt.show()\par
+\par
+#(b) Regression on one variable for positive correlation\par
+X=mtcars[['wheelbase']]\par
+Y=mtcars[['carlength']]\par
+reg=linear_model.LinearRegression()\par
+reg.fit(X,Y)\par
+print(reg.coef_)\par
+print(reg.intercept_) #IMP\par
+sns.regplot(X,Y)\par
+plt.show()\par
+\par
+#(c) Regression on one variable with no correlation\par
+#X=mtcars[['stroke']]\par
+#Y=mtcars[['price']]\par
+#reg=linear_model.LinearRegression()\par
+#reg.fit(X,Y)\par
+#print(reg.coef_)\par
+#sns.regplot(X,Y)\par
+#plt.show()\par
+\par
+\par
+\par
+#3. Regression on multiple variables\par
+X=mtcars[['horsepower','curbweight']]\par
+Y=mtcars[['price']]\par
+reg=linear_model.LinearRegression()\par
+reg.fit(X,Y)\par
+print(reg.coef_)\par
+\par
+# complete credit to the internet for the below code\par
+df2 = pd.DataFrame(mtcars,columns=['horsepower','curbweight','price'])\par
+import statsmodels.formula.api as smf\par
+model = smf.ols(formula='price ~ horsepower + curbweight', data=df2)\par
+results_formula = model.fit()\par
+results_formula.params\par
+\par
+\par
+## Prepare the data for Visualization\par
+\par
+x_surf, y_surf = np.meshgrid(np.linspace(df2.horsepower.min(), df2.horsepower.max(), 100),np.linspace(df2.curbweight.min(), df2.curbweight.max(), 100))\par
+onlyX = pd.DataFrame(\{'horsepower': x_surf.ravel(), 'curbweight': y_surf.ravel()\})\par
+fittedY=results_formula.predict(exog=onlyX)\par
+\par
+\par
+\par
+## convert the predicted result in an array\par
+fittedY=np.array(fittedY)\par
+\par
+\par
+\par
+\par
+# Visualize the Data for Multiple Linear Regression\par
+\par
+fig = plt.figure()\par
+ax = fig.add_subplot(111, projection='3d')\par
+ax.scatter(df2['horsepower'],df2['curbweight'],df2['price'],c='red', marker='o', alpha=0.5)\par
+ax.plot_surface(x_surf,y_surf,fittedY.reshape(x_surf.shape), color='b', alpha=0.3)\par
+ax.set_xlabel('Horsepower')\par
+ax.set_ylabel('Curbweight')\par
+ax.set_zlabel('Price')\par
+plt.show()\par
+\par
+\par
+5. \ul FACTOR ANALYSIS\ulnone\par
+\par
+\par
+import pandas as pd\par
+from sklearn.datasets import load_iris\par
+from factor_analyzer import FactorAnalyzer\par
+from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity\par
+from factor_analyzer.factor_analyzer import calculate_kmo\par
+import matplotlib.pyplot as plt\par
+import os\par
+import seaborn as sns\par
+import numpy as np\par
+\par
+os.chdir("C:/Users/DellDownloads")\par
+df=pd.read_csv('CarPrice_Assignment_FA.csv')\par
+df.info()\par
+df.drop(['car_ID','CarName'],axis=1,inplace=True)\par
+df.info()\par
+# Converting the categorical data into continous was done manually using FIND AND REPLACE in MS Excel.\par
+\par
+# Checking the correlation\par
+#x= df.corr(method= 'pearson')\par
+#print(x)\par
+#sns.heatmap(df.corr(method='pearson'),data=df)\par
+#plt.show()\par
+# Bartlett\rquote s test\par
+#chi_square_value,p_value=calculate_bartlett_sphericity(df)\par
+#print(chi_square_value, p_value)\par
+# Not sure how to interpret this. \par
+\par
+\par
+# Kaiser-Meyer-Olkin (KMO) Test\par
+kmo_all,kmo_model=calculate_kmo(df)\par
+print(kmo_model)\par
+# KMO values range between 0 and 1. Value of KMO less than 0.5 is considered inadequate.\par
+# The overall KMO for our data is 0.78, which is pretty good. \par
+# This value indicates that we can proceed with our planned factor analysis.\par
+\par
+\par
+#Choosing the number of factors\par
+# Create factor analysis object and perform factor analysis\par
+#fa = FactorAnalyzer()\par
+#fa.analyze(df, 25, rotation=None)\par
+#Check Eigenvalues\par
+#ev, v = fa.get_eigenvalues()\par
+#print(ev)\par
+\par
+fa = FactorAnalyzer()\par
+fa.fit(df)\par
+eigen_values, vectors = fa.get_eigenvalues()\par
+print(vectors)\par
+# 3 eigen values are greater than 1 therefore,\par
+# NUMBER OF FACTORS = 3\par
+\par
+\par
+# Create scree plot using matplotlib\par
+plt.scatter(range(1,df.shape[1]+1),vectors)\par
+plt.plot(range(1,df.shape[1]+1),vectors)\par
+plt.title('Scree Plot')\par
+plt.xlabel('Factors')\par
+plt.ylabel('Eigenvalue')\par
+plt.grid()\par
+plt.show()\par
+# It is understandable from the scree plot that the number of factors 3 or 4.\par
+\par
+# Create factor analysis object and perform factor analysis\par
+fa = FactorAnalyzer()\par
+fa.set_params(n_factors=6, rotation='varimax')\par
+fa.fit(df)\par
+loadings = fa.loadings_\par
+print(loadings)\par
+\par
+\par
+# Get variance of each factors\par
+print(fa.get_factor_variance())\par
+# It is in the below format \par
+#                      Factor 1       Factor2       Factor3 \par
+# SS Loadings\par
+# Proportion Var\par
+# Cummulative Var\par
+\par
+# Total 58% cumulative Variance is explained by the 3 factors.\par
+\par
+6. \ul HYPOTHESIS TESTING\ulnone\par
+\par
+getwd()\par
+data=read.csv("CarPrice_Assignment.csv")\par
+mean(data$curbweight)\par
+# H0: Mean curbweight = 2550\par
+# H1: Mean curbweight > 2550\par
+t.test(data$curbweight,mu=2550,alternative ='two.sided',conf.level=0.95)\par
+\par
+7.\ul MATRICES AND VECTORS\ulnone\par
+\par
+\par
+import numpy as np\par
+X=np.array([[1,2,3],[3,2,1],[9,10,7]])\par
+print(X)\par
+Y=np.array([[1,2,3],[3,2,1],[9,10,7]]).T\par
+print(X)\par
+A=np.array([[0]*3])\par
+print(A)\par
+print(np.zeros((4,8)))\par
+print(np.ones(4))\par
+print(X)\par
+print(Y)\par
+print(X+Y)\par
+print(np.shape(X))\par
+I=np.array([[10,20,30,40,50,60,70]])\par
+print(I)\par
+print(I[0,1],I[0,3],I[0,6])\par
+print(np.shape(I))\par
+print(I.T)\par
+V=np.array([[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20]])\par
+print(V)\par
+print(np.shape(V))\par
+print(V.T)\par
+print(V[:,0])\par
+print(V[0,:])\par
+print(np.zeros(7))\par
+print(np.ones(3))\par
+\b0\par
+\par
+\b 8.\ul QUESTIONS AND ANSWERS\ulnone\par
+import numpy as np\par
+# 1. Define and print a 6 dimentional vector\par
+X=np.array([[1,2,3,4,5,6]])\par
+print(X)\par
+\par
+# 2. Print the transpose of the above vector\par
+print(X.T)\par
+\par
+# 3. Define two non square matrices such that they can be mulplied.\par
+X=np.array([[1,2],[3,4],[5,6]])\par
+Y=np.array([[1,2,3],[4,5,6]])\par
+\par
+# 4. Print the shape of the above matrices\\\par
+print(np.shape(X), np.shape(Y))\par
+\par
+# 5. Print the product of above two matrices (do so without using the inbuilt functions).\par
+Z=np.array([np.zeros(3)]*3)\par
+for i in range(len(X)):\par
+    for j in range(len(Y[1])):\par
+        for k in range(len(Y)):\par
+            Z[i][j] += X[i][k] * Y[k][j]\par
+print(Z)\par
+\par
+# 6. Define two non square matrices of same order and print their sum.\par
+A=np.array([[1,2,3],[4,5,6]])\par
+B=np.array([[-1,-2,-3],[-4,-5,-6]])\par
+print(A+B)\par
+\par
+# 7. Define a square matrix A.\par
+A=np.array([[7,2,4],[4,9,6],[7,8,9]])\par
+\par
+# 8. Print the transpose of A.\par
+print(A.T)\par
+\par
+# 9. Print the identity matrix of the above order I.\par
+I=np.array([[1,0,0],[0,1,0],[0,0,1]])\par
+print(I)\par
+\par
+# 10. Verify A.I = I.A for matrix multiplication.\par
+X=A@I\par
+print("A.I = ",X)\par
+Y=I@A\par
+print("I.A = ",Y)\par
+print(" Therefore, A.I = I.A")\par
+ \par
+# 11. Define another square matrix of the same order as A.\par
+B=np.array([[2,5,7],[3,6,3],[0,1,9]])\par
+\par
+# 12. Print the product of the matrices as matrix multiplication\par
+print(A@B)\par
+\par
+# 13. Print the product of the matrices by element wise multiplication\par
+print(np.multiply(A,B)) \par
+\par
+# 14. Calculate and print the inverse of A. (Use linalg)\par
+d=np.linalg.det(A)\par
+print("Determinant = ",d)  \par
+if d!=0:\par
+    print("Inverse of A = ",np.linalg.inv(A))\par
+else:\par
+    print("Inverse does not exist")    \b0\par
+}
+ 
