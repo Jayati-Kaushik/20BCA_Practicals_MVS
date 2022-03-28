@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Mar 24 22:39:36 2022
-
-@author: fiona
-"""
-
 getwd()
 data=read.csv("CarPrice_Assignment.csv")
 mean(data$curbweight)
